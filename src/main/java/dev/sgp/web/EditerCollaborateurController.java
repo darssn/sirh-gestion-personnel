@@ -23,6 +23,32 @@ public class EditerCollaborateurController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		
+		String matricule = req.getParameter("matricule");
+		
+		resp.getWriter().write("<h1>Edition de collaborateur</h1>");
+		
+		if(matricule == null || "".equals(matricule)){
+			
+			resp.setStatus(400);
+			resp.getWriter().write("<p>Un matricule est attendu </p>");
+			
+			
+		}else{
+								
+			resp.setStatus(200);			
+			resp.getWriter().write("<p>Matricule : "+matricule+"  </p>");
+		}
+		
+		
+
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String matricule = req.getParameter("matricule");
 		String titre = req.getParameter("titre");
 		String nom = req.getParameter("nom");
@@ -72,8 +98,8 @@ public class EditerCollaborateurController extends HttpServlet {
 		}
 		
 		resp.getWriter().write(chaine);
-
-
 	}
+	
+	
 
 }
