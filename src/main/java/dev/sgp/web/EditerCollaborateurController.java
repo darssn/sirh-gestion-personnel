@@ -28,7 +28,7 @@ public class EditerCollaborateurController extends HttpServlet {
 		
 		resp.getWriter().write("<h1>Edition de collaborateur</h1>");
 		
-		if(matricule == null || "".equals(matricule)){
+		if(matricule == null || "".equals(matricule.trim())){
 			
 			resp.setStatus(400);
 			resp.getWriter().write("<p>Un matricule est attendu </p>");
