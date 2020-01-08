@@ -58,13 +58,16 @@ public class EditerCollaborateurController extends HttpServlet {
 		if (isParam == false) {
 
 			resp.setStatus(400);
-			
-			
+				
 		} else {
 
 			resp.setStatus(201);
-			chaine += "<p>Creation d'un collaborateur avec les informations suivantes : </p>";
-			chaine += "<p>Matricule=" + matricule + ",titre=" + titre + ",nom=" + nom + ",prenom=" + prenom + "</p>";
+			chaine += "<p>Creation d'un collaborateur avec les informations suivantes :</p>";
+			
+			for (String par : mapParam.keySet()) {
+					chaine +="<p>"+par+"="+mapParam.get(par)+"</p>";				
+			}
+			
 
 		}
 		
