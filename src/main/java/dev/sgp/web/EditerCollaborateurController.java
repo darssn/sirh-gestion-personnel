@@ -24,54 +24,52 @@ public class EditerCollaborateurController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String matricule = req.getParameter("matricule");
-		
 		String titre = req.getParameter("titre");
 		String nom = req.getParameter("nom");
 		String prenom = req.getParameter("prenom");
-		
-		Map<String,String> mapParam = new HashMap<>();
-		
-		mapParam.put("titre",titre);
-		mapParam.put("nom",nom);
-		mapParam.put("matricule",matricule);
-		mapParam.put("prenom",prenom);
-		
 
-		resp.getWriter().write( "<h1>Liste des collaborateurs</h1>");
-	
-		
-		
-		if (matricule == null || titre == null || nom == null || prenom == null) {
+		Map<String, String> mapParam = new HashMap<>();
+
+		mapParam.put("titre", titre);
+		mapParam.put("nom", nom);
+		mapParam.put("matricule", matricule);
+		mapParam.put("prenom", prenom);
+
+		resp.getWriter().write("<h1>Liste des collaborateurs</h1>");
+
+		boolean isParam = true;
+
+		String chaine = "";
+
+		for (String par : mapParam.keySet()) {
+
+			if (mapParam.get(par) == null) {
+
+				if (isParam == true) {
+					isParam = false;
+					chaine += "<p>Les paramètres suivant sont incorrects : </p>";
+				}
+
+				chaine += "<p>" + par + "</p>";
+
+			}
+		}
+
+		if (isParam == false) {
 
 			resp.setStatus(400);
-			resp.getWriter().write("<p>Les paramètres suivant sont incorrects : </p>");
-			if(matricule == null){
-				resp.getWriter().write("<p>Matricule</p>");
-			}
-			if(titre ==null){
-				resp.getWriter().write("<p>Titre</p>");
-			}
-			
-			if(nom == null){
-				
-				resp.getWriter().write("<p>Nom</p>");
-			}
-			
-			if (prenom == null){
-				resp.getWriter().write("<p>Prenom</p>");
-				
-			}
 			
 			
+		} else {
 
-		}else{
-			
 			resp.setStatus(201);
-			resp.getWriter().write("<p>Creation d'un collaborateur avec les informations suivantes : </p>");
-			resp.getWriter().write("<p>Matricule="+ matricule +",titre="+titre+",nom="+nom+",prenom="+prenom+"</p>");
-			
+			chaine += "<p>Creation d'un collaborateur avec les informations suivantes : </p>";
+			chaine += "<p>Matricule=" + matricule + ",titre=" + titre + ",nom=" + nom + ",prenom=" + prenom + "</p>";
+
 		}
 		
+		resp.getWriter().write(chaine);
+
 
 	}
 
