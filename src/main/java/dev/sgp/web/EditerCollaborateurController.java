@@ -66,7 +66,7 @@ public class EditerCollaborateurController extends HttpServlet {
 
 		}else{
 			
-			resp.setStatus(200);
+			resp.setStatus(201);
 			resp.getWriter().write("<p>Creation d'un collaborateur avec les informations suivantes : </p>");
 			resp.getWriter().write("<p>Matricule="+ matricule +",titre="+titre+",nom="+nom+",prenom="+prenom+"</p>");
 			
