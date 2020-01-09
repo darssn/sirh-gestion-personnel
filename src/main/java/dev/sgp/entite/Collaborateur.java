@@ -18,8 +18,11 @@ public class Collaborateur {
 	private ZonedDateTime dateHeureCreation;
 	private String intitulePoste="";
 	private Departement departement = null;
+	private String banque="";
+	private String bic="";
+	private String iban="";
 	
-	private String photo = "photo.png";
+	private String photo = "img/photo.png";
 	private boolean actif = true ;
 	
 	public Collaborateur(String nom,String prenom,String dateNaissance,String adresse,String numSS,String email,ZonedDateTime date){
@@ -201,6 +204,48 @@ public class Collaborateur {
 	 */
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
+	}
+
+	/**Getter
+	 * @return the banque
+	 */
+	public String getBanque() {
+		return banque;
+	}
+
+	/**Setter
+	 * @param banque the banque to set
+	 */
+	public void setBanque(String banque) {
+		this.banque = banque;
+	}
+
+	/**Getter
+	 * @return the bic
+	 */
+	public String getBic() {
+		return bic;
+	}
+
+	/**Setter
+	 * @param bic the bic to set
+	 */
+	public void setBic(String bic) {
+		this.bic = bic;
+	}
+
+	/**Getter
+	 * @return the iban
+	 */
+	public String getIban() {
+		return iban;
+	}
+
+	/**Setter
+	 * @param iban the iban to set
+	 */
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
 	
 	

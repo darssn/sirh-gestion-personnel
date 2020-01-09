@@ -24,7 +24,7 @@ no">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-        <img src="img/arobase.png" width="30" height="30" alt="">
+        <img src="<%=request.getContextPath()%>/img/arobase.png" width="30" height="30" alt="">
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -186,7 +186,7 @@ no">
 
                         <div class="row mb-1 mt-2 pt-2">
                             <div class="col offset-8">
-                                <a class="btn btn-primary" href="editer.html" role="button">Editer</a>
+                                <a class="btn btn-primary" href="<%=application.getContextPath()%>/collaborateurs/editer?matricule=<%=collab.getMatricule() %>"role="button">Editer</a>
                             </div>
 
                         </div>

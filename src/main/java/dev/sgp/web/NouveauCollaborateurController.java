@@ -79,7 +79,7 @@ public class NouveauCollaborateurController extends HttpServlet {
 		}else{
 			
 			resp.setStatus(400);
-			resp.sendRedirect("/sgp/collaborateurs/nouveau");
+			resp.sendRedirect("/sgp/collaborateurs/lister");
 			
 		}
 		

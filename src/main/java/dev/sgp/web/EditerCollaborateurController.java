@@ -12,33 +12,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dev.sgp.entite.Collaborateur;
+import dev.sgp.entite.Departement;
+import dev.sgp.service.CollaborateurService;
+import dev.sgp.service.DepartementService;
+import dev.sgp.util.Constantes;
+
 public class EditerCollaborateurController extends HttpServlet {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.
-	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
+	private CollaborateurService collabService = Constantes.COLLAB_SERVICE ;
+	private DepartementService depService = Constantes.DEP_SERVICE ;
+	
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		
-		String matricule = req.getParameter("matricule");
 		
-		resp.getWriter().write("<h1>Edition de collaborateur</h1>");
+		Collaborateur col =  collabService.rechercheCollaborateur(req.getParameter("matricule"));
 		
-		if(matricule == null || "".equals(matricule.trim())){
-			
-			resp.setStatus(400);
-			resp.getWriter().write("<p>Un matricule est attendu </p>");
-			
-			
-		}else{
-								
-			resp.setStatus(200);			
-			resp.getWriter().write("<p>Matricule : "+matricule+"  </p>");
-		}
+		req.setAttribute("collaborateur", col);
+		
+		
+		req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
 		
 		
 
@@ -51,55 +48,34 @@ public class EditerCollaborateurController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		
-		String matricule = req.getParameter("matricule");
-		String titre = req.getParameter("titre");
-		String nom = req.getParameter("nom");
-		String prenom = req.getParameter("prenom");
-
-		Map<String, String> mapParam = new HashMap<>();
-
-		mapParam.put("titre", titre);
-		mapParam.put("nom", nom);
-		mapParam.put("matricule", matricule);
-		mapParam.put("prenom", prenom);
-
-		resp.getWriter().write("<h1>Liste des collaborateurs</h1>");
-
-		boolean isParam = true;
-
-		String chaine = "";
-
-		for (String par : mapParam.keySet()) {
-
-			if (mapParam.get(par) == null) {
-
-				if (isParam == true) {
-					isParam = false;
-					chaine += "<p>Les paramètres suivant sont incorrects : </p>";
-				}
-
-				chaine += "<p>" + par + "</p>";
-
-			}
-		}
-
-		if (isParam == false) {
-
-			resp.setStatus(400);
-				
-		} else {
-
-			resp.setStatus(201);
-			chaine += "<p>Creation d'un collaborateur avec les informations suivantes :</p>";
+		
+		String adresse = req.getParameter("adresse");
+		String tel = req.getParameter("tel");
+		String poste = req.getParameter("poste");
+		String iban = req.getParameter("iban");
+		String bic = req.getParameter("bic");
+		
+		Departement dep = depService.rechercheDepartement(req.getParameter("dep"));
+		
+		
+		if( !("".equals(adresse)) && adresse != null){
 			
-			for (String par : mapParam.keySet()) {
-					chaine +="<p>"+par+"="+mapParam.get(par)+"</p>";				
-			}
+			Collaborateur c = collabService.rechercheCollaborateur(req.getParameter("matricule"));
 			
-
+			c.setAdresse(adresse);
+			c.setIntitulePoste(poste);
+			c.setIban(iban);
+			c.setBic(bic);
+			c.setDepartement(dep);
+			
+					
 		}
 		
-		resp.getWriter().write(chaine);
+		
+		
+		
+		resp.sendRedirect("/sgp/collaborateurs/lister");
+
 	}
 	
 	

@@ -17,6 +17,7 @@
 		<servlet-name>NouveauCollaborateurController</servlet-name>
 		<servlet-class>dev.sgp.web.NouveauCollaborateurController</servlet-class>
 	</servlet>
+	
 		
 	<servlet-mapping>
 		<servlet-name>ListerCollaborateursController</servlet-name>

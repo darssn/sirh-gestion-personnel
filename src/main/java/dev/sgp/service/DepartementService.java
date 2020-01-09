@@ -36,5 +36,23 @@ public class DepartementService {
 		listeDepartement.add(dep);
 
 	}
+	
+	public Departement rechercheDepartement(String nomDep){
+		
+		Departement d = null;
+		
+		for(Departement dep : listerDepartement()){
+			
+			if(dep.getNom().equals(nomDep)){
+				
+				
+				d=dep;
+			}
+			
+		}
+		
+		return d;
+			
+	}
 
 }
