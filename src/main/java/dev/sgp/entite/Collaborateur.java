@@ -16,8 +16,8 @@ public class Collaborateur {
 	private String numSS;
 	private String emailPro;	
 	private ZonedDateTime dateHeureCreation;
-	private String intitulePoste;
-	private Departement departement;
+	private String intitulePoste="";
+	private Departement departement = null;
 	
 	private String photo = "photo.png";
 	private boolean actif = true ;
@@ -173,6 +173,34 @@ public class Collaborateur {
 	 */
 	public void setActif(boolean actif) {
 		this.actif = actif;
+	}
+
+	/**Getter
+	 * @return the intitulePoste
+	 */
+	public String getIntitulePoste() {
+		return intitulePoste;
+	}
+
+	/**Setter
+	 * @param intitulePoste the intitulePoste to set
+	 */
+	public void setIntitulePoste(String intitulePoste) {
+		this.intitulePoste = intitulePoste;
+	}
+
+	/**Getter
+	 * @return the departement
+	 */
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	/**Setter
+	 * @param departement the departement to set
+	 */
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
 	}
 	
 	

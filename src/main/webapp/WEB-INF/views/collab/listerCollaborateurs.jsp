@@ -1,5 +1,6 @@
 
 
+<%@page import="dev.sgp.entite.Departement"%>
 <%@page import="dev.sgp.entite.Collaborateur"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -95,14 +96,22 @@ no">
                 <div class="col-12 col-xl-3">
 
                     <select id="filtreDep" name="filtre" class="form-control">
-                        <option value="Tous">Tous</option>
-                        <option value="Comptabilité">Comptabilité</option>
-                        <option value="Ressources Humaines">Ressources Humaines</option>
-                        <option value="Informatique">Informatique</option>
+                    <option value="Tous">Tous</option>
+                      
+			<%	
+			List<Departement> listeD = (List<Departement>) request.getAttribute("listeDep");	
+			for (Departement dep : listeD) {
+				%>
+					<option value="<%= dep.getNom() %>"><%= dep.getNom() %></option>
+			<%
+		 	}
+			%>
+                        
+                      
                     </select>
                 </div>
             </div>
-            </div>
+            
 
             <div class="row" style="margin-top:20px">
                 <div class="col-xl-2 offset-xl-5 offset-7">
@@ -114,26 +123,23 @@ no">
 
         <div class="row">
 
-           <ul>
+          
 		<%	
-			List<Collaborateur> listeC = (List<Collaborateur>) request.getAttribute("liste");	
+			List<Collaborateur> listeC = (List<Collaborateur>) request.getAttribute("listeCollab");	
+		
+		if(listeC.size()>0){
 			for (Collaborateur collab : listeC) {
 		%>
-		<li><%= collab.getEmailPro() %></li>
-		<%
-			}
-		%>
-	</ul>
-
-         
+		
+        
             <div class="col-12 col-xl-4   mb-2 mt-2">
                 <div class="card">
-                    <h5 class="card-header">Nom Prénom</h5>
+                    <h5 class="card-header"><%= collab.getNom()%> <%= collab.getPrenom()%></h5>
                     <div class="card-body">
                         <div class="row">
 
                             <div class="col-12 col-xl-2 text-center">
-                                <img src="img/carre.png" width="80" height="80">
+                                <img src="<%= collab.getPhoto()%>" width="80" height="80">
                             </div>
                             <div class="col offset-xl-1">
                                 <div class="row">
@@ -141,7 +147,7 @@ no">
                                         <p class="card-text"> Fonction</p>
                                     </div>
                                     <div class="col">
-                                        <p class="card-text"> ************</p>
+                                        <p class="card-text"> <%= collab.getIntitulePoste() %></p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -149,7 +155,13 @@ no">
                                         <p class="card-text"> Département</p>
                                     </div>
                                     <div class="col">
-                                        <p class="card-text"> ************</p>
+                                        <p class="card-text">
+                                        <% if(collab.getDepartement() != null){
+                                         %>
+                                       	 <%= collab.getDepartement().getNom() %>
+                                      <%} 
+                                        %></p>
+                                        
                                     </div>
                                 </div>
                                 <div class="row">
@@ -157,7 +169,7 @@ no">
                                         <p class="card-text"> Email</p>
                                     </div>
                                     <div class="col">
-                                        <p class="card-text"> ***********</p>
+                                        <p class="card-text"><%= collab.getEmailPro() %> </p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -165,7 +177,7 @@ no">
                                         <p class="card-text"> Téléphone</p>
                                     </div>
                                     <div class="col">
-                                        <p class="card-text"> ***********</p>
+                                        <p class="card-text"> </p>
                                     </div>
                                 </div>
                             </div>
@@ -181,6 +193,11 @@ no">
                     </div>
                 </div>
             </div>
+            
+            <%
+			}
+			}
+		  %>
         </div>
     </main>
 
