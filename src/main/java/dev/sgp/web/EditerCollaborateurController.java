@@ -49,6 +49,8 @@ public class EditerCollaborateurController extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		
 		String matricule = req.getParameter("matricule");
 		String titre = req.getParameter("titre");
 		String nom = req.getParameter("nom");

@@ -1,31 +1,201 @@
-<%@page import="java.util.List"%>
 
+
+<%@page import="dev.sgp.entite.Collaborateur"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@page import="java.util.List" 
+%>
 
+<!doctype html>
+<html lang="fr">
 
-
-
-
-
-<!DOCTYPE html>
-<html>
 <head>
-<meta charset="UTF-8">
-<title>SGP - App</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-tofit=
+no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>SGP - Accueil</title>
 </head>
+
 <body>
-	<h1>Les collaborateurs</h1>
-	<ul>
-		<%
-			List<String> listeNoms = (List<String>) request.getAttribute("listeNoms");
-		
-			for (String nom : listeNoms) {
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <img src="img/arobase.png" width="30" height="30" alt="">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <div class="collapse navbar-collapse ml-2" id="navbarSupportedContent">
+
+
+            <ul class="navbar-nav mr-auto nav-pills">
+                <li class="nav-item ">
+                    <a class="nav-link active " href="<%=application.getContextPath()%>/collaborateurs/lister">Collaborateurs</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="stats.html">Statistiques</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="activites.html">Activités</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </nav>
+    <main class="container-fluid">
+
+        <div class="row">
+            <div class="col-12 mt-2">
+                <h1>Les collaborateurs</h1>
+            </div>
+
+        </div>
+
+        <div class="row mt-1" style="margin-bottom : 50px">
+            <div class="col-12 col-xl-4 offset-xl-8 mt-2">
+                <a class="btn btn-primary" href="<%=application.getContextPath()%>/collaborateurs/nouveau" role="button">Ajouter un nouveau collaborateur</a>
+            </div>
+        </div>
+
+
+
+
+        <form method="" action="#" style="margin-bottom : 60px">
+
+            <div class="row">
+
+                <div class="col-xl-3 col-12 text-xl-right ">
+
+                    <label for="recherche">Rechercher un nom ou un prénom qui commence par :</label>
+
+                </div>
+
+                <div class="col-xl-3 col-12 ">
+                    <input type="text" id="recherche" class="form-control">
+                </div>
+
+                <div class="col-xl-2 col-12 mt-2">
+                    <input type="checkbox" class="form-check-label"> Voir les collaborateurs désactivés
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-12 col-xl-3  text-xl-right">
+                    <label for="filtreDep">Filtrer par département : </label>
+                </div>
+                <div class="col-12 col-xl-3">
+
+                    <select id="filtreDep" name="filtre" class="form-control">
+                        <option value="Tous">Tous</option>
+                        <option value="Comptabilité">Comptabilité</option>
+                        <option value="Ressources Humaines">Ressources Humaines</option>
+                        <option value="Informatique">Informatique</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="col-xl-2 offset-xl-5 offset-7">
+                    <button class="btn btn-primary" type="submit">Rechercher</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row">
+
+           <ul>
+		<%	
+			List<Collaborateur> listeC = (List<Collaborateur>) request.getAttribute("liste");	
+			for (Collaborateur collab : listeC) {
 		%>
-		<li><%= nom %></li>
+		<li><%= collab.getEmailPro() %></li>
 		<%
 			}
 		%>
 	</ul>
+
+         
+            <div class="col-12 col-xl-4   mb-2 mt-2">
+                <div class="card">
+                    <h5 class="card-header">Nom Prénom</h5>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-12 col-xl-2 text-center">
+                                <img src="img/carre.png" width="80" height="80">
+                            </div>
+                            <div class="col offset-xl-1">
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text"> Fonction</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"> ************</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text"> Département</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"> ************</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text"> Email</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"> ***********</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <p class="card-text"> Téléphone</p>
+                                    </div>
+                                    <div class="col">
+                                        <p class="card-text"> ***********</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-1 mt-2 pt-2">
+                            <div class="col offset-8">
+                                <a class="btn btn-primary" href="editer.html" role="button">Editer</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- TODO -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-
+J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
