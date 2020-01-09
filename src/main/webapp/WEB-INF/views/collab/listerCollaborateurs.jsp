@@ -139,7 +139,7 @@ no">
                         <div class="row">
 
                             <div class="col-12 col-xl-2 text-center">
-                                <img src="<%= collab.getPhoto()%>" width="80" height="80">
+                                <img src="<%=request.getContextPath()%>/<%= collab.getPhoto()%>" width="80" height="80">
                             </div>
                             <div class="col offset-xl-1">
                                 <div class="row">
