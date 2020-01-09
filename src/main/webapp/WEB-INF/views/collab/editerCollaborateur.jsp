@@ -39,7 +39,7 @@
 
 			<ul class="navbar-nav mr-auto nav-pills">
 				<li class="nav-item "><a class="nav-link active "
-					href="index.html">Collaborateurs</a></li>
+					href="<%=application.getContextPath()%>/collaborateurs/lister">Collaborateurs</a></li>
 
 				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
 				</li>
@@ -74,7 +74,9 @@
 			</div>
 
 			<form action="editer" method="post" >
+			
 				<div class="row">
+				<input type="hidden" value="<%=col.getMatricule()%>" name="matricule">
 					<div class="col">
 						<div class="accordion" id="accordionExample">
 							<div class="card">
@@ -91,7 +93,7 @@
 									aria-labelledby="headingOne" data-parent="#accordionExample">
 									<div class="card-body">
 
-									<input type="hidden" value="<%=col.getMatricule()%>" name="matricule">
+									
 	
 
 										<div class="row mt-2 mb-2">
@@ -100,8 +102,33 @@
 											</div>
 											<div class="col-12 col-xl-8">
 												<select id="civ" name="civ" class="form-control">
-													<option value="Mr">Mr</option>
-													<option value="M">M</option>
+												
+												
+												<%
+												if("".equals(col.getCivilite())){ %>
+													<option value=""></option>
+													
+														
+													
+												<%}
+												
+													if(col.getCivilite().equals("M")){ %>
+																									
+														<option value="M" selected>M</option>
+														<option value="Mr">Mr</option>
+														
+													<% }else if(col.getCivilite().equals("Mr")){%>
+
+														<option value="M">M</option>
+														<option value="Mr" selected>Mr</option>
+													<%}else{%>
+														<option value="M">M</option>
+														<option value="Mr">Mr</option>
+														
+													<%}
+														
+													%>
+												
 												</select>
 											</div>
 
@@ -170,14 +197,10 @@
 											</div>
 
 											<div class="col-12 col-xl-8">
-												<input type="tel" id="tel" class="form-control">
+												<input type="tel" id="tel" name="tel" class="form-control" value="<%=col.getTelephone()%>">
 											</div>
 
 										</div>
-
-
-
-
 
 									</div>
 								</div>
@@ -206,6 +229,11 @@
 
 													<%
 														DepartementService depService = Constantes.DEP_SERVICE;
+														
+													if(col.getDepartement() == null){%>
+														<option value="" selected></option>
+														
+												<%	}
 
 														for (Departement dep : depService.listerDepartement()) {
 
@@ -217,9 +245,8 @@
 													<option value="<%=dep.getNom()%>" selected><%=dep.getNom()%></option>
 
 													<%
-														} else {
-													%>
-
+																} else {
+	%>
 													<option value="<%=dep.getNom()%>"><%=dep.getNom()%></option>
 
 

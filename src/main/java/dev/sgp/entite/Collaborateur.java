@@ -21,6 +21,8 @@ public class Collaborateur {
 	private String banque="";
 	private String bic="";
 	private String iban="";
+	private String civilite = "";
+	private String telephone ="";
 	
 	private String photo = "img/photo.png";
 	private boolean actif = true ;
@@ -246,6 +248,34 @@ public class Collaborateur {
 	 */
 	public void setIban(String iban) {
 		this.iban = iban;
+	}
+
+	/**Getter
+	 * @return the civilite
+	 */
+	public String getCivilite() {
+		return civilite;
+	}
+
+	/**Setter
+	 * @param civilite the civilite to set
+	 */
+	public void setCivilite(String civilite) {
+		this.civilite = civilite;
+	}
+
+	/**Getter
+	 * @return the telephone
+	 */
+	public String getTelephone() {
+		return telephone;
+	}
+
+	/**Setter
+	 * @param telephone the telephone to set
+	 */
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 	
 	

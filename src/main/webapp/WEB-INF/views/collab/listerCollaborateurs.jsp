@@ -177,7 +177,7 @@ no">
                                         <p class="card-text"> Téléphone</p>
                                     </div>
                                     <div class="col">
-                                        <p class="card-text"> </p>
+                                        <p class="card-text"> <%= collab.getTelephone() %></p>
                                     </div>
                                 </div>
                             </div>

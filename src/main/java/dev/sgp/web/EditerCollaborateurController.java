@@ -54,6 +54,7 @@ public class EditerCollaborateurController extends HttpServlet {
 		String poste = req.getParameter("poste");
 		String iban = req.getParameter("iban");
 		String bic = req.getParameter("bic");
+		String civ = req.getParameter("civ");
 		
 		Departement dep = depService.rechercheDepartement(req.getParameter("dep"));
 		
@@ -67,14 +68,15 @@ public class EditerCollaborateurController extends HttpServlet {
 			c.setIban(iban);
 			c.setBic(bic);
 			c.setDepartement(dep);
-			
+			c.setCivilite(civ);
+			c.setTelephone(tel);
 					
 		}
 		
 		
 		
 		
-		resp.sendRedirect("/sgp/collaborateurs/lister");
+		resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");
 
 	}
 	
