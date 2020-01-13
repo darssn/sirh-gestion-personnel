@@ -2,7 +2,7 @@ package dev.sgp.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 import dev.sgp.entite.Departement;
 
@@ -21,8 +21,7 @@ public class DepartementService {
 		listeDepartement.add(new Departement(1,"Comptabilité"));
 		listeDepartement.add(new Departement(2,"Ressources Humaines"));
 		listeDepartement.add(new Departement(3,"Informatique"));
-		listeDepartement.add(new Departement(4,"Administratif"));
-		
+		listeDepartement.add(new Departement(4,"Administratif"));	
 	}
 
 	public List<Departement> listerDepartement() {
@@ -37,22 +36,12 @@ public class DepartementService {
 
 	}
 	
-	public Departement rechercheDepartement(String nomDep){
+	public Optional<Departement> rechercheDepartement(String nomDep){
 		
-		Departement d = null;
 		
-		for(Departement dep : listerDepartement()){
-			
-			if(dep.getNom().equals(nomDep)){
-				
-				
-				d=dep;
-			}
-			
-		}
 		
-		return d;
-			
+		return listeDepartement.stream().filter(dep-> dep.getNom().equals(nomDep)).findAny();
+		
 	}
 
 }

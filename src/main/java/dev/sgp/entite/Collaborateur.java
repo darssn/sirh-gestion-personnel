@@ -24,7 +24,7 @@ public class Collaborateur {
 	private String civilite = "";
 	private String telephone ="";
 	
-	private String photo = "img/photo.png";
+	private String photo = "photo.png";
 	private boolean actif = true ;
 	
 	public Collaborateur(String nom,String prenom,String dateNaissance,String adresse,String numSS,String email,ZonedDateTime date){

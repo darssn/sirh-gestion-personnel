@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,49 +21,49 @@ import dev.sgp.util.Constantes;
 
 public class EditerCollaborateurController extends HttpServlet {
 
-	private CollaborateurService collabService = Constantes.COLLAB_SERVICE ;
-	private DepartementService depService = Constantes.DEP_SERVICE ;
-	
-	
-	
+	private CollaborateurService collabService = Constantes.COLLAB_SERVICE;
+	private DepartementService depService = Constantes.DEP_SERVICE;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		
-		
-		Collaborateur col =  collabService.rechercheCollaborateur(req.getParameter("matricule"));
-		
+		Collaborateur col = collabService.rechercheCollaborateur(req.getParameter("matricule")).get();
+
 		req.setAttribute("collaborateur", col);
-		
-		
+		req.setAttribute("listeDep", depService.listerDepartement());
+
 		req.getRequestDispatcher("/WEB-INF/views/collab/editerCollaborateur.jsp").forward(req, resp);
-		
-		
 
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.
+	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
-		
+
 		String adresse = req.getParameter("adresse");
 		String tel = req.getParameter("tel");
 		String poste = req.getParameter("poste");
 		String iban = req.getParameter("iban");
 		String bic = req.getParameter("bic");
 		String civ = req.getParameter("civ");
-		
-		Departement dep = depService.rechercheDepartement(req.getParameter("dep"));
-		
-		
-		if( !("".equals(adresse)) && adresse != null){
-			
-			Collaborateur c = collabService.rechercheCollaborateur(req.getParameter("matricule"));
-			
+
+		Departement dep = null;
+
+		if (depService.rechercheDepartement(req.getParameter("dep")).isPresent()) {
+
+			dep = depService.rechercheDepartement(req.getParameter("dep")).get();
+
+		}
+
+		if (!("".equals(adresse)) && adresse != null) {
+
+			Collaborateur c = collabService.rechercheCollaborateur(req.getParameter("matricule")).get();
+
 			c.setAdresse(adresse);
 			c.setIntitulePoste(poste);
 			c.setIban(iban);
@@ -70,16 +71,11 @@ public class EditerCollaborateurController extends HttpServlet {
 			c.setDepartement(dep);
 			c.setCivilite(civ);
 			c.setTelephone(tel);
-					
+
 		}
-		
-		
-		
-		
-		resp.sendRedirect(req.getContextPath()+"/collaborateurs/lister");
+
+		resp.sendRedirect(req.getContextPath() + "/collaborateurs/lister");
 
 	}
-	
-	
 
 }

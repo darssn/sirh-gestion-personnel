@@ -3,6 +3,8 @@ package dev.sgp.service;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import dev.sgp.entite.Collaborateur;
 
@@ -34,21 +36,12 @@ public class CollaborateurService {
 	}
 	
 	
-	public Collaborateur rechercheCollaborateur(String matricule){
+	public Optional<Collaborateur> rechercheCollaborateur(String matricule){
 		
 		
-		Collaborateur c  = null;
+			return listeCollaborateurs.stream().filter(col -> col.getMatricule().equals(matricule)).findAny();
+	
 		
-		for(Collaborateur col : listeCollaborateurs){
-			
-			if(matricule.equals(col.getMatricule())){
-							
-				c = col;				
-			}
-				
-		}
-		
-		return c ;
 	}
 
 }

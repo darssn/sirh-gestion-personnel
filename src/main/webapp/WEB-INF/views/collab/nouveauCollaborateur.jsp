@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,15 +15,16 @@
 	content="width=device-width, initial-scale=1, shrink-tofit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/bootstrap-4.4.1-dist/css/bootstrap.css">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <title>SGP - App</title>
 </head>
 
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <img
-		src="<%=request.getContextPath()%>/img/arobase.png" width="30"
-		height="30" alt="">
+		src="<c:url value='/img/arobase.png'/>" width=" 30" height="30" alt="">
 
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
@@ -37,8 +39,7 @@
 
 		<ul class="navbar-nav mr-auto nav-pills">
 			<li class="nav-item "><a class="nav-link active "
-				href="<%=application.getContextPath()%>/collaborateurs/lister">Collaborateurs</a>
-			</li>
+				href="<c:url value='lister'></c:url>">Collaborateurs</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
 			</li>
@@ -69,12 +70,11 @@
 				<label for="nom">Nom</label>
 			</div>
 			<div class="col-12 col-xl-6">
-				<input type="text" id="nom" name="nom" value="<%=request.getAttribute("nom") %>" 
-				
-					class="form-control <%if ((Boolean)request.getAttribute("checkNom") == false) {%>                   
-                    is-invalid            
-                    <%}%>">
 
+
+				<input type="text" id="nom" name="nom" value="<c:out value="${requestScope.nom}"/>" class="form-control <c:if test="${requestScope.checkNom == false}" > is-invalid  </c:if>" >
+				
+				
 				<div class="invalid-feedback">Le nom est obligatoire.</div>
 			</div>
 
@@ -86,10 +86,7 @@
 				<label for="prenom">Prénom</label>
 			</div>
 			<div class="col-12 col-xl-6">
-				<input type="text" id="prenom" name="prenom" value="<%=request.getAttribute("prenom") %>" 
-					class="form-control <%if  ((Boolean)request.getAttribute("checkPrenom") == false)  {%>                   
-                    is-invalid            
-                    <%}%>">
+				<input type="text" id="prenom" name="prenom" value="<c:out value="${requestScope.prenom}"/>" class="form-control <c:if test="${requestScope.checkPrenom == false}" > is-invalid  </c:if>" >
                     <div class="invalid-feedback">Le prenom est obligatoire.</div>
 			</div>
 			
@@ -100,11 +97,9 @@
 			<div class="col-12 col-xl-3">
 				<label for="dateNaissance">Date de naissance</label>
 			</div>
+
 			<div class="col-12 col-xl-6"> 
-				<input type="date" id="dateNaissance" name="dateNaissance" value="<%=request.getAttribute("dateN") %>" 
-					class="form-control <%if  ((Boolean)request.getAttribute("checkDateN") == false)  {%>                   
-                    is-invalid            
-                    <%}%>">
+				<input type="date" id="dateNaissance" name="dateNaissance" value="<c:out value="${requestScope.dateN}"/>" class="form-control <c:if test="${requestScope.checkDateN == false}" > is-invalid  </c:if>" >
                     <div class="invalid-feedback">La date de naissance est
 				obligatoire.</div>
 			</div>
@@ -117,11 +112,9 @@
 			<div class="col-12 col-xl-3">
 				<label for="adresse">Adresse</label>
 			</div>
+
 			<div class="col-12 col-xl-6">
-				<textarea id="adresse" name="adresse" rows="3" value="<%=request.getAttribute("adresse") %>" 
-					class="form-control <%if ((Boolean)request.getAttribute("checkAdresse") == false)  {%>                   
-                    is-invalid            
-                    <%}%>"></textarea>
+				<textarea id="adresse" name="adresse" rows="3" class="form-control <c:if test="${requestScope.checkAdresse == false}" > is-invalid  </c:if>" ><c:out value="${requestScope.adresse}"/></textarea>
                     <div class="invalid-feedback">L'adresse est
 				obligatoire.</div>
 			</div>
@@ -136,10 +129,7 @@
 				<label for="numSS">Numéro de sécurité social</label>
 			</div>
 			<div class="col-12 col-xl-6">
-				<input type="text" id="numSS" name="numSS" value="<%=request.getAttribute("numSS") %>" 
-					class="form-control <%if ((Boolean)request.getAttribute("checkNumSS") == false) {%>                   
-                    is-invalid            
-                    <%}%>">
+				<input type="text" id="numSS" name="numSS" value="<c:out value="${requestScope.numSS}"/>" class="form-control <c:if test="${requestScope.checkNumSS == false}" > is-invalid  </c:if>" >
                     <div class="invalid-feedback">Le numero de sécurité social de
 				naissance est obligatoire.</div>
 			</div>

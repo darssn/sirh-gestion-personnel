@@ -23,18 +23,6 @@ public class NouveauCollaborateurController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.setAttribute("nom","");
-		req.setAttribute("prenom", "");
-		req.setAttribute("dateN","");
-		req.setAttribute("adresse","");
-		req.setAttribute("numSS","");
-		
-		req.setAttribute("checkNom",true);
-		req.setAttribute("checkPrenom",true);
-		req.setAttribute("checkDateN",true);
-		req.setAttribute("checkAdresse",true);
-		req.setAttribute("checkNumSS",true);
-		
 		
 		req.getRequestDispatcher("/WEB-INF/views/collab/nouveauCollaborateur.jsp").forward(req, resp);
 	
@@ -84,10 +72,12 @@ public class NouveauCollaborateurController extends HttpServlet {
 		
 		if (("".equals(dateNaissance.trim()) || dateNaissance == null)) {	
 
+		
 			req.setAttribute("checkDateN",false);
 			req.setAttribute("dateN",dateNaissance);
 			check = false;
 		}else{
+	
 			req.setAttribute("checkDateN",true);
 			req.setAttribute("dateN",dateNaissance);
 			

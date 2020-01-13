@@ -4,6 +4,7 @@
 <%@page import="dev.sgp.entite.Collaborateur"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="fr">
 
@@ -24,7 +25,8 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-		<img src="<%=request.getContextPath()%>/img/arobase.png" width="30" height="30" alt="">
+		<img src="<c:url value='/img/arobase.png'/>" width="30" height="30"
+			alt="">
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
@@ -39,7 +41,7 @@
 
 			<ul class="navbar-nav mr-auto nav-pills">
 				<li class="nav-item "><a class="nav-link active "
-					href="<%=application.getContextPath()%>/collaborateurs/lister">Collaborateurs</a></li>
+					href="<c:url value='lister'></c:url>">Collaborateurs</a></li>
 
 				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
 				</li>
@@ -49,34 +51,42 @@
 		</div>
 	</nav>
 
-	<main class="container-fluid"> <%
- 	Collaborateur col = (Collaborateur) request.getAttribute("collaborateur");
- %>
+	<main class="container-fluid">
+
+
+
+
+
 
 
 	<div class="row" style="margin-top: 50px">
 
+		<c:set var="col" value="${requestScope.collaborateur}" />
+
 		<div class="col-12 col-xl-3 text-center">
-			<img src="<%=request.getContextPath()%>/<%=col.getPhoto()%>">
+			<img src="<c:url value="/img/${col.photo} "/>">
 		</div>
 
 		<div class="col-xl-7">
 			<div class="row mb-2">
 				<div class="col-xl-5 ">
-					<h2><%=col.getNom()%>
-						<%=col.getPrenom()%>
+					<h2>
+						<c:out value="${col.nom}" />
+						<c:out value="${col.prenom}" />
 						-
-						<%=col.getMatricule()%></h2>
+						<c:out value="${col.matricule}" />
+					</h2>
 				</div>
 				<div class="col-xl-2 my-auto">
 					<input type="checkbox" class="form-check-label"> Désactiver</input>
 				</div>
 			</div>
 
-			<form action="editer" method="post" >
-			
+			<form action="editer" method="post">
+
 				<div class="row">
-				<input type="hidden" value="<%=col.getMatricule()%>" name="matricule">
+					<input type="hidden" value="<c:out value="${col.matricule}"/>"
+						name="matricule">
 					<div class="col">
 						<div class="accordion" id="accordionExample">
 							<div class="card">
@@ -93,8 +103,8 @@
 									aria-labelledby="headingOne" data-parent="#accordionExample">
 									<div class="card-body">
 
-									
-	
+
+
 
 										<div class="row mt-2 mb-2">
 											<div class="col-12 col-xl-4 text-xl-right">
@@ -102,33 +112,39 @@
 											</div>
 											<div class="col-12 col-xl-8">
 												<select id="civ" name="civ" class="form-control">
-												
-												
-												<%
-												if("".equals(col.getCivilite())){ %>
-													<option value=""></option>
-													
-														
-													
-												<%}
-												
-													if(col.getCivilite().equals("M")){ %>
-																									
-														<option value="M" selected>M</option>
-														<option value="Mr">Mr</option>
-														
-													<% }else if(col.getCivilite().equals("Mr")){%>
 
-														<option value="M">M</option>
-														<option value="Mr" selected>Mr</option>
-													<%}else{%>
-														<option value="M">M</option>
-														<option value="Mr">Mr</option>
-														
-													<%}
-														
-													%>
-												
+													<c:if test='${col.civilite==""}'>
+
+														<option value=""></option>
+
+													</c:if>
+
+													<c:choose>
+														<c:when test='${col.civilite.equals("M")}'>
+															<option value="M" selected>M</option>
+															<option value="Mr">Mr</option>
+
+
+														</c:when>
+
+
+														<c:when test='${col.civilite.equals("Mr")}'>
+															<option value="M">M</option>
+															<option value="Mr" selected>Mr</option>
+
+														</c:when>
+														<c:otherwise>
+															<option value="M">M</option>
+															<option value="Mr">Mr</option>
+														</c:otherwise>
+													</c:choose>
+
+													<c:if test='${col.civilite.equals("M")}'>
+
+
+													</c:if>
+
+
 												</select>
 											</div>
 
@@ -141,7 +157,7 @@
 
 											<div class="col-12 col-xl-8">
 												<input type="text" id="nom" class="form-control" readonly
-													value="<%=col.getNom()%>">
+													value="<c:out value="${col.nom}"/>">
 											</div>
 
 										</div>
@@ -153,7 +169,7 @@
 
 											<div class="col-12 col-xl-8">
 												<input type="text" id="prenom" class="form-control"
-													value="<%=col.getPrenom()%>" readonly>
+													value="<c:out value="${col.prenom}"/>" readonly>
 											</div>
 
 										</div>
@@ -165,7 +181,7 @@
 
 											<div class="col-12 col-xl-8">
 												<input type="date" id="dateN" class="form-control"
-													value="<%=col.getDateNaissance()%>" readonly>
+													value="<c:out value="${col.dateNaissance}"/>" readonly>
 											</div>
 
 										</div>
@@ -175,8 +191,8 @@
 											</div>
 
 											<div class="col-12 col-xl-8">
-												<textarea id="adresse" name="adresse" class="form-control"
-												><%=col.getAdresse()%></textarea>
+												<textarea id="adresse" name="adresse" class="form-control"><c:out
+														value="${col.adresse}" /></textarea>
 											</div>
 
 										</div>
@@ -187,7 +203,7 @@
 
 											<div class="col-12 col-xl-8">
 												<input type="text" id="sumSS" class="form-control"
-													value="<%=col.getNumSS()%>" readonly>
+													value="<c:out value="${col.numSS}"/>" readonly>
 											</div>
 
 										</div>
@@ -197,7 +213,8 @@
 											</div>
 
 											<div class="col-12 col-xl-8">
-												<input type="tel" id="tel" name="tel" class="form-control" value="<%=col.getTelephone()%>">
+												<input type="tel" id="tel" name="tel" class="form-control"
+													value="<c:out value="${col.telephone}"/>">
 											</div>
 
 										</div>
@@ -227,42 +244,33 @@
 											<div class="col-12 col-xl-6">
 												<select id="dep" name="dep" class="form-control">
 
-													<%
-														DepartementService depService = Constantes.DEP_SERVICE;
-														
-													if(col.getDepartement() == null){%>
+												
+
+
+													<c:if test="${col.departement == null}">
 														<option value="" selected></option>
-														
-												<%	}
 
-														for (Departement dep : depService.listerDepartement()) {
+													</c:if>
+													
+													
+													<c:forEach var="dep" items="${requestScope.listeDep}">
+													
+													
+													<c:choose>
+													
+													<c:when test="${dep.nom.equals(col.departement.nom) }">
+													
+													<option value="<c:out value="${dep.nom}" />" selected><c:out value="${dep.nom}" /></option>
+													</c:when>
+													<c:otherwise>
+														<option value="<c:out value="${dep.nom}" />"><c:out value="${dep.nom}" /></option>
+													</c:otherwise>
+													</c:choose>
+												
+													
+												
 
-															if (col.getDepartement() != null) {
-
-																if (dep.getNom().equals(col.getDepartement().getNom())) {
-													%>
-
-													<option value="<%=dep.getNom()%>" selected><%=dep.getNom()%></option>
-
-													<%
-																} else {
-	%>
-													<option value="<%=dep.getNom()%>"><%=dep.getNom()%></option>
-
-
-													<%
-														}
-															} else {
-													%>
-
-													<option value="<%=dep.getNom()%>"><%=dep.getNom()%></option>
-
-													<%
-														}
-
-														}
-													%>
-
+													</c:forEach>
 												</select>
 											</div>
 
@@ -274,8 +282,9 @@
 											</div>
 
 											<div class="col-12 col-xl-6">
-												<input type="text" name="poste" id="nomPoste" class="form-control"
-													value="<%=col.getIntitulePoste()%>">
+												<input type="text" name="poste" id="nomPoste"
+													class="form-control"
+													value="<c:out value="${col.intitulePoste}"/>">
 											</div>
 
 										</div>
@@ -305,8 +314,8 @@
 											</div>
 
 											<div class="col-12 col-xl-6">
-												<input type="text" name="iban"id="iban" class="form-control"
-													value="<%=col.getIban()%>">
+												<input type="text" name="iban" id="iban"
+													class="form-control" value="<c:out value="${col.iban}"/>">
 											</div>
 
 										</div>
@@ -318,7 +327,7 @@
 
 											<div class="col-12 col-xl-6">
 												<input type="text" name="bic" id="bic" class="form-control"
-													value="<%=col.getBic()%>">
+													value="<c:out value="${col.bic}"/>">
 											</div>
 
 										</div>
@@ -330,15 +339,15 @@
 					</div>
 
 				</div>
-				
-				<div class="row mt-2 mb-2">
-				<div class="col-2 offset-6 offset-xl-10 mt-2">
 
-					<button type="submit" class="btn btn-primary">Sauvegarder</button>
+				<div class="row mt-2 mb-2">
+					<div class="col-2 offset-6 offset-xl-10 mt-2">
+
+						<button type="submit" class="btn btn-primary">Sauvegarder</button>
+					</div>
 				</div>
-			</div>
 			</form>
-			
+
 		</div>
 
 
