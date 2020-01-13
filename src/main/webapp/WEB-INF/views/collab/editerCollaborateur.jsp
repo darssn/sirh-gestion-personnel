@@ -43,7 +43,7 @@
 				<li class="nav-item "><a class="nav-link active "
 					href="<c:url value='lister'></c:url>">Collaborateurs</a></li>
 
-				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='statistiques'></c:url>">Statistiques</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="activites.html">Activités</a>
 				</li>

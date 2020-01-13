@@ -1,7 +1,4 @@
 
-
-<%@page import="dev.sgp.entite.Departement"%>
-<%@page import="dev.sgp.entite.Collaborateur"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List"%>
@@ -45,7 +42,7 @@ no">
 				<li class="nav-item "><a class="nav-link active "
 					href="<c:url value='lister'></c:url>">Collaborateurs</a></li>
 
-				<li class="nav-item"><a class="nav-link" href="stats.html">Statistiques</a>
+				<li class="nav-item"><a class="nav-link" href="<c:url value='statistiques'></c:url>">Statistiques</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="activites.html">Activités</a>
 				</li>
