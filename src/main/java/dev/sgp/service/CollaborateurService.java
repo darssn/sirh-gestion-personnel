@@ -14,12 +14,7 @@ public class CollaborateurService {
 	private List<Collaborateur> listeCollaborateurs = new ArrayList<>();
 	
 	
-	public CollaborateurService(){
-		
-		listeCollaborateurs.add(new Collaborateur("bob", "bobby","2020-01-01","12 rue frf grdr", "123456789123456", "bobby.bob@test.com", ZonedDateTime.now()));
-	}
-	
-	
+
 	
 	public List<Collaborateur> listerCollaborateurs(){
 		

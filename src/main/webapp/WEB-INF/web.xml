@@ -20,19 +20,19 @@
 		<servlet-class>dev.sgp.web.NouveauCollaborateurController
 		</servlet-class>
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>StatsController</servlet-name>
 		<servlet-class>dev.sgp.web.StatsController
 		</servlet-class>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>StatsController</servlet-name>
 		<url-pattern>/collaborateurs/statistiques</url-pattern>
 	</servlet-mapping>
-	
-	
+
+
 
 	<servlet-mapping>
 		<servlet-name>ListerCollaborateursController</servlet-name>
@@ -61,5 +61,9 @@
 		<filter-name> FrequentationFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<listener>
+		<listener-class>dev.sgp.ecouteur.Listener</listener-class>
+	</listener>
 
 </web-app>
