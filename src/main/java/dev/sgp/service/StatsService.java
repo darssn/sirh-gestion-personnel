@@ -1,8 +1,10 @@
 package dev.sgp.service;
 
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import dev.sgp.entite.VisiteWeb;
 
@@ -30,61 +32,23 @@ public class StatsService {
 
 	public int moyenneVisite(String chemin) {
 
-		return (int) (listeVisiteWeb.stream().filter(visW -> visW.getChemin().equals(chemin))
-				.map(visW -> visW.getTempsExecution()).reduce((x, y) -> x + y).get()) / nbVisite(chemin);
-
+		
+	return (int) listeVisiteWeb.stream().filter(visW -> visW.getChemin().equals(chemin)).collect(Collectors.summarizingDouble(VisiteWeb::getTempsExecution)).getAverage();
+	
 	}
 
 	public int tMin(String chemin) {
-		int result = 0;
-		boolean val = true;
+	
+		
+		return (int)listeVisiteWeb.stream().filter(visW -> visW.getChemin().equals(chemin)).collect(Collectors.summarizingDouble(VisiteWeb::getTempsExecution)).getMin();
 
-		for (VisiteWeb vW : listeVisiteWeb) 
-		{
-			if (val == true && vW.getChemin().equals(chemin)) {
-
-				result = vW.getTempsExecution();
-				val = false;
-			}
-			
-
-			if (vW.getChemin().equals(chemin) && vW.getTempsExecution() < result) {
-
-				result = vW.getTempsExecution();
-			}
-
-		}
-		return result;
+		
 
 	}
 
 	public int tMax(String chemin) {
 
-		int result = 0;
-		boolean val = true;
-
-		for (VisiteWeb vW : listeVisiteWeb) {
-			
-		
-			
-			if (val == true && vW.getChemin().equals(chemin)) {
-				
-				result = vW.getTempsExecution();
-				val = false;
-				
-			}
-
-			if (vW.getChemin().equals(chemin) && vW.getTempsExecution() > result) {
-				
-				
-
-				result = vW.getTempsExecution();
-				
-			}
-
-		}
-		
-		return result;
+		return (int)listeVisiteWeb.stream().filter(visW -> visW.getChemin().equals(chemin)).collect(Collectors.summarizingDouble(VisiteWeb::getTempsExecution)).getMax();
 
 	}
 
